@@ -2,14 +2,13 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 require('dotenv').config()
+const body_parser = require('body-parser');
+
 
 app.use(cors())
+app.use(body_parser.urlencoded({extended:false}));
 app.use(express.static('public'))
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html')
-});
-
-
+app.use('/',require('./Routes.js'))
 
 
 
