@@ -32,7 +32,7 @@ router.post('/api/users/:_id/exercises', async (req,res)=>{
     const ele = {
         description: body.description,
         duration: +body.duration,
-        date: (new Date(body.date)).toDateString()
+        date: new Date(body.date)
     }
     try {
         const username = await User.findById({_id:id});
@@ -47,7 +47,7 @@ router.post('/api/users/:_id/exercises', async (req,res)=>{
                 const result = await data.save();
                 console.log(result);
             }
-            res.json({_id:id, username:username.username, ...ele});
+            res.json({_id:id, username:username.username, description: ele.description, duration: ele.duration, date: ele.date.toDateString()});
         }
         else{
             res.send("No Id found!");
@@ -71,10 +71,10 @@ router.get('/api/users/:_id/logs/', async (req,res)=>{
                 const obj = {
                     description: x.description,
                     duration: x.duration,
-                    date: x.date
+                    date: x.date.toDateString()
                 }
                 if(to && from){
-                    if((from <= Date(x.date) <= to)){
+                    if((from <= x.date <= to)){
                         return obj;
                     }
                 }

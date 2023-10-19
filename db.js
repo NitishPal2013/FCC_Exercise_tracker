@@ -30,7 +30,7 @@ const DataSchema = mongoose.Schema({
     logs:[{
         description: String,
         duration: Number,
-        date: String
+        date: Date
     }],
 },{collection:'data'});
 
